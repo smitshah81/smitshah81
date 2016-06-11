@@ -148,5 +148,5 @@ window.PanoPlayer = {};
 })(this);
 
 var player = new PanoPlayer();
-player.loadFile("http://192.168.5.196/panolence/panolens.js-master/build/test.json");
+player.loadFile("http://smitshah81.github.io/panoplayer/test.json");
      
