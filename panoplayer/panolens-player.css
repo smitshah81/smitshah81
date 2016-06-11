@@ -27,10 +27,11 @@
         overflow: auto;
         -webkit-overflow-scrolling: touch;
       }
-      #desc-container > iframe {
+      #desc-container > iframe,img.image{
         border: none;
         width:100%;
       }
+      
       .title {
         font-size: 1.5em;
         text-align: center;

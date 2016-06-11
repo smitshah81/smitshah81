@@ -9,16 +9,25 @@ window.PanoPlayer = {};
 	var data,structureddata;
 	this.loadFile = function(loadurl){
 		
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("GET", loadurl, true);
-	    xhttp.send();
-	    xhttp.onreadystatechange = function() {
-	    if (xhttp.readyState == 4 && xhttp.status == 200) {
-	      	
-	      	player.setupPanorama(JSON.parse(xhttp.responseText));
-	   	 }
+		// if(window.XMLHttpRequest){
+  //              var xhttp = new XMLHttpRequest();
+  //           }else{
+  //              var xhttp = new ActiveXObject('Microsoft.XMLHTTP');
+  //           };
 
-		};
+
+		// xhttp.open("GET", loadurl, true);
+		// xhttp.responseType = 'json';
+		// xhttp.setRequestHeader('Accept', 'application/json');
+	 //    xhttp.send();
+	 //    xhttp.onreadystatechange = function() {
+	 //    if (xhttp.status == 200) {
+	 //      	console.log(xhttp.response);
+	 //      	player.setupPanorama(JSON.parse(xhttp.response));
+	 //   	 }
+
+		// };
+		player.setupPanorama(JSON.parse(jsonstring));
 	};
 	this.setupPanorama = function(data){
 		viewer = new PANOLENS.Viewer();
@@ -42,7 +51,11 @@ window.PanoPlayer = {};
 		}
 		for(var allpano in panoramas)
 		{
+			panoramas[allpano].position.set( 	Math.floor((Math.random() * 10)), 0, 0 );
 			viewer.add( panoramas[allpano]);
+			
+			
+			//panoramas[1].position.set( -54.00, -58.00, 31.10 );
 		}
 		if(Object.size(screenaddedlater) != 0)
 		{
@@ -51,16 +64,15 @@ window.PanoPlayer = {};
 				if(linkadded.indexOf(i) == -1)
 				{
 					linkadded.push(screenaddedlater[i]);
-					console.log(linkadded);
-					console.log(panoramas[i]);
-					console.log(panoramas[screenaddedlater[i]]);
-					panoramas[i].link(panoramas[screenaddedlater[i]]);
-					console.log(panoramas[screenaddedlater[i]].linkedSpots);
+					panoramas[screenaddedlater[i]].link(panoramas[i]);
+					panoramas[i].linkedSpots[0].position.set(screenaddedlaterpos[i].x,screenaddedlaterpos[i].y,screenaddedlaterpos[i].z);
 				}
 
 			}
+			
 		}
 	};
+
 	Object.size = function(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -71,33 +83,49 @@ window.PanoPlayer = {};
 	this.randerScreen = function(panoramas,screenData,current){
 		
 		var html="";
+		document.getElementById("desc-container").innerHTML="";
 		var type=screenData.type;
 		if(screenData.type=="video")
 		{
-			document.getElementById("desc-container").innerHTML =player.getVideoHtml(screenData.name,screenData.typevalue);
+			
 			var  iid = new PANOLENS.Infospot( 350, PANOLENS.DataImage[type]);
+			document.getElementById("desc-container").innerHTML=player.getVideoHtml(screenData.name,screenData.typevalue);
+			iid.addHoverElement(document.getElementById("desc-container"));
 			iid.position.set( screenData.position.x, screenData.position.y, screenData.position.z );
 		 	panoramas[current].add( iid );
 		}
 		else if(screenData.type=="audio")
 		{
-			document.getElementById("desc-container").innerHTML=player.getAudioHtml(screenData.name,screenData.typevalue);
+			
 			var  iid = new PANOLENS.Infospot( 350, PANOLENS.DataImage[type]);
 			iid.position.set( screenData.position.x, screenData.position.y, screenData.position.z );
+			document.getElementById("desc-container").innerHTML=player.getAudioHtml(screenData.name,screenData.typevalue);
+			iid.addHoverElement(document.getElementById("desc-container"));
 		 	panoramas[current].add( iid );
 		}
 		else if(screenData.type=="image")
 		{
-			document.getElementById("desc-container").innerHTML=player.getImageHtml(screenData.name,screenData.typevalue);
+			
 			var  iid = new PANOLENS.Infospot( 350, PANOLENS.DataImage[type]);
+			
+			document.getElementById("desc-container").innerHTML=player.getImageHtml(screenData.name,screenData.typevalue);
+			iid.addHoverElement(document.getElementById("desc-container"));
 			iid.position.set( screenData.position.x, screenData.position.y, screenData.position.z );
 		 	panoramas[current].add( iid );
+		}
+		else if(screenData.type=="text")
+		{
+			var  iid = new PANOLENS.Infospot( 350, PANOLENS.DataImage["Info"]);
+			iid.addHoverText(screenData.typevalue);
+			iid.position.set( screenData.position.x, screenData.position.y, screenData.position.z );
+		 	panoramas[current].add( iid );	
 		}
 		else if(screenData.type=="screen")
 		{
 			
 				screenaddedlater[current]="p"+screenData.typevalue;
-			//	panoramas[current].position.set( screenData.x, screenData.y, screenData.z );
+				screenaddedlaterpos[current]=screenData.position;
+				//panoramas[current].position.set( 0,0,0 );
 
 		}
 		 
@@ -148,5 +176,5 @@ window.PanoPlayer = {};
 })(this);
 
 var player = new PanoPlayer();
-player.loadFile("http://smitshah81.github.io/panoplayer/test.json");
+player.loadFile("http://192.168.5.196/panolence/panolens.js-master/build/test.json");
      
