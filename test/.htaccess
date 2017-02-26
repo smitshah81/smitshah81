@@ -1,0 +1,6 @@
+RewriteBase /
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin "http://nandanpestcontrol.net16.net"    
+
+    </IfModule>
