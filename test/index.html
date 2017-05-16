@@ -1,0 +1,331 @@
+
+<html>
+	<head>
+		  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+     <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+		<title>Khadayata Community Job Portal</title>
+		 <!-- add the jQuery script -->
+		   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css"> -->
+    <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_purple.min.css">
+<style>
+    #show-dialog {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+
+
+</head>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+ <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        
+        <div class="mdl-layout__header-row">
+          <h3>Support Khadayata</h3>
+         
+          
+         
+        </div>
+        
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark" id="menu">
+         <div class="docs-navigation__container">
+            <nav class="docs-navigation mdl-navigation">
+ </nav>
+
+        </div>
+
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+            <i class="material-icons" role="presentation">more_vert</i>
+            <span class="visuallyhidden">more_vert</span>
+          </button>
+
+          
+
+        </div>
+     <!--   <button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button> -->
+ 
+          <!-- <i class="material-icons scrollindicator scrollindicator--right">&#xE315;</i>
+      <i class="material-icons scrollindicator scrollindicator--left">&#xE314;</i> -->
+      </header>
+<ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="add">
+            
+            <li class="mdl-menu__item" onclick="setMyCookie('provider')">Looking For Job</li>
+            <li class="mdl-menu__item" onclick="setMyCookie('type');">Searching Employee</li>
+            
+          </ul>
+<main class="mdl-layout__content">
+
+
+
+</main>
+
+
+</div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-92427112-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js" id="matirialjs"></script>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <script type="text/javascript" src="js/csvtojson.js"></script>
+   <script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+   <script type="text/javascript">
+   var filterData = new Array();
+		var seeker = new Array();
+		var provider = new Array();
+		var providerstate = new Array();
+		var providercity = new Array();
+		var seekerstate = new Array();
+		var seekercity = new Array();
+		var currenttype="";
+$(document).ready(function(){
+	//http://docs.google.com/spreadsheets/d/1evJcs8YQ2JATrdS_AhMaBjsPpZTeKl4d36MkRfHIqno/pub?gid=728508687&single=true&output=tsv
+$.ajax({
+	crossDomain: true,
+	url:"http://nandanpestcontrol.net16.net/default.php",
+	success:function(result) {
+		
+		var data=tsvJSON(result);
+		//console.log(data);
+		for(var i in data)
+		{
+			
+
+			filterData =
+			 { 
+			 	[data[i]["Job Type"]] : 
+			 				 
+			 					   {
+			 						[data[i]["State"].replace("/","_").replace(/ /g,'_').replace(/,/g,"").replace(/;/g,"")] : 
+			 								{ 
+			 									[data[i]["City"].replace("/","_").replace(/ /g,'_').replace(/,/g,"").replace(/;/g,"")] :  data[i]  
+			 								}
+			 						 }
+			 					
+			 			    
+			 } 
+			 if(data[i]["Job Type"]=="I want a job")
+			 {
+			 	seeker.push(filterData[data[i]["Job Type"]]);
+			 	seekerstate.push(data[i]["State"].replace("/","_").replace(/ /g,'_'));
+			 	seekercity[data[i]["City"].replace("/","_").replace(/ /g,'_').replace(",","")]=data[i]["State"].replace("/","_").replace(/ /g,'_').replace(",","");
+			 }
+			 else
+			 {
+
+			 	provider.push(filterData[data[i]["Job Type"]]);
+			 	providerstate.push(data[i]["State"].replace("/","_").replace(/ /g,'_'));
+			 	providercity[data[i]["City"].replace("/","_").replace(/ /g,'_').replace(",","")]=data[i]["State"].replace("/","_").replace(/ /g,'_').replace(",","");
+			 }
+			
+			// console.log(filterData);
+		}
+		//console.log(filterData1);
+		// console.log(seeker);
+		// console.log(provider);
+		providerstate=$.uniqueSort(providerstate);
+		seekerstate=$.uniqueSort(seekerstate);
+		providercity=$.uniqueSort(providercity);
+		seekercity=$.uniqueSort(seekercity);
+		if($.cookie("type")!="")
+		{
+			if($.cookie("type")=="provider")
+			{
+				regenerateMenu(providerstate,providercity,provider);
+				currenttype="provider";
+				$("#mdl-layout__content").append("<span>List of Job Provider.</span>");
+			}
+			else
+			{
+				regenerateMenu(seekerstate,seekercity,seeker);
+				currenttype="seeker";
+				$("#mdl-layout__content").append("<span>List of Job Seeker.</span>")
+			}
+		}
+		else
+		{
+
+		}
+		
+		
+
+		//componentHandler.downgradeElements('mdl-layout_tab');
+		//console.log(states);
+		//console.log(city);
+	}
+});
+
+
+
+});
+function setMyCookie(type)
+{
+	$.cookie("type", type);
+	window.location.href=window.location.origin;
+}
+function loadcity(city)
+{
+	
+	$('a.mdl-layout__tab').removeClass('is-active');
+    // activate desired tab
+    $('a[href="'+city+'"]').addClass('is-active');
+    // remove all is-active classes from panels
+    $('.mdl-layout__tab-panel').removeClass('is-active');
+    // activate desired tab panel
+    $(city).addClass('is-active');
+}
+function regenerateMenu(states,city,userInfo)
+{
+	
+
+	$("#matirialjs").attr("src",$("#matirialjs").attr("src"));
+
+	$("#menu nav").html("");
+	$(".mdl-layout__content").html("");
+	
+		for(var i in states)
+		{	//states[i] = states[i].replace(" ","");
+			if(typeof states[i] !="undefined" && states[i].indexOf("undefined") === -1)
+			{
+			$("#menu nav").append("<a href='#"+states[i]+"' class='mdl-layout__tab'>"+states[i].replace(/_/g,' ')+"</a>");
+			$(".mdl-layout__content").append('<div class="mdl-layout__tab-panel" id="'+states[i]+'"><section class=" mdl-grid  mdl-shadow--2dp"></section></div>');
+			//console.log(userInfo);
+			for(var mycity in city)
+			{
+				//mycity=mycity.replace("/","_").replace(/ /g,'_');
+				//console.log(states[i]+"---"+city[mycity]);
+				if(states[i]==city[mycity])
+				{
+						$("#"+states[i]+" section").append('<div class="mdl-card__title mdl-card--expand"><div class="demo-card-event mdl-card mdl-shadow--2dp"><div class="mdl-card__supporting-text">		                <h4>'+mycity.replace(/_/g,' ')+'</h4></div><div class="mdl-card__actions mdl-typography--text-right"><a href="#" onClick=\"loadcity(\'#'+states[i].trim()+'-'+mycity+'\');\"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Vacancies</button> </a>		              </div> </div></div>');
+			    }
+			    var cityadded = new Array();
+			    for(var eachInfo in userInfo)
+			    { 
+			    	try{
+
+			    	if(typeof userInfo[eachInfo] != "undefined" && typeof userInfo[eachInfo][city[mycity]] != "undefined" && typeof  userInfo[eachInfo][city[mycity]][mycity] != "undefined" )
+			    	{
+			    		//if( mycity.indexOf("undefined") <> -1)
+			    		// console.log(mycity);
+			    		// console.log(cityadded);
+			    		if(cityadded.indexOf(mycity) === -1)
+			    		{
+
+			    		$(".mdl-layout__content").append('<div class="mdl-layout__tab-panel" id="'+states[i]+'-'+mycity+'"><section class=" mdl-grid  mdl-shadow--2dp"></section></div>');
+			    		//$("#menu").append("<a href='#"+states[i]+'-'+mycity+"' class='mdl-layout__tab' style='visibility:hidden'>"+states[i]+'-'+mycity+"</a>");
+			    		cityadded.push(mycity);
+			    		//componentHandler.upgradeDom();
+			    		}
+			    	//	console.log(states[i]+'-'+mycity);
+			    	
+			    		var userdata=formatedatadard(userInfo[eachInfo][city[mycity]][mycity]);
+			    		$("#"+states[i]+'-'+mycity +" section").append('<div class="demo-card-event mdl-card mdl-shadow--2dp">'+userdata+' </div>');
+						
+			    	}
+			    	
+			    	}
+			    	catch(e)
+			    	{
+			    		//typeof(userInfo[eachInfo].states[i]);
+			    		console.log(e);
+			    	}
+			    	//continue;
+			    }
+			}
+			}
+		}
+		//  componentHandler.downgradeAllComponentThatNotInClass();
+        
+       //componentHandler.upgradeDom('MaterialMenu', 'mdl-menu');
+$("body").find("div").removeAttr("is-upgraded");
+componentHandler.upgradeDom(this);
+   //    componentHandler.upgradeElement($("#menu nav"), 'mdl-js-ripple-effect')
+      // componentHandler.upgradeDom('MaterialRipple', 'mdl-js-ripple-effect');
+
+
+}
+function formatedatadard(userdata)
+{
+	//console.log(userdata.Title);
+	var firstname = "First Name";
+	var lastname = "Last Name";
+	var companyname = "Company Name (Optional)";
+	var address = "Current Address (Optional)";
+	var email = "Email Address";
+	var experience = "Experience Level";
+	var gender = "Gender (Optional)";
+	var mobile = "Mobile Number";
+	var pincode = "Pincode (Optional)";
+	var position = "Position (Optional)";
+	var qualification = "Qualification (Required or Possessed)";
+	var remarks = "Remarks (Or any other details that you want to provide)";
+	var salary = "Salary (Optional)";
+	var status = "Status (Optional)";
+	var date = "Timestamp";
+	var data = '<div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">'+userdata.Title+" "+userdata[firstname]+'</h2></div><div class="mdl-card__supporting-text">';//+ " " +userdata[lastname]
+	      if(currenttype=="provider")
+	      {                                         
+		data += '<b>Address</b> :'+((userdata[address]==null)?"Not Available":userdata[address]);
+		data += '</br><b>Pincode :</b>'+((userdata[pincode]==="")?"Not Available":userdata[pincode]);
+		}
+		data += '</br><b>Email :</b>'+((userdata[email]==="")?"Not Available":userdata[email]);
+		
+		data += '</br><b>Experience :</b>'+((userdata[experience]==="")?"Not Available":userdata[experience]);
+		data += '</br><b>Gender :</b>'+((userdata[gender]==="")?"Not Available":userdata[gender]);
+		if(currenttype=="provider")
+	      {
+		data += '</br><b>Mobile :</b>'+((userdata[mobile]==="")?"Not Available":userdata[mobile]);
+		}
+		data += '</br><b>Position :</b>'+((userdata[position]==="")?"Not Available":userdata[position]);
+		data += '</br><b>Qualification :</b>'+((userdata[qualification]==="") ?"Not Available":userdata[qualification]);
+		if(currenttype=="provider")
+	      {
+			data += '</br><b>Note :</b><i>'+((userdata[remarks]==="") ?"Not Available":userdata[remarks])+"</i>";
+		}
+		data += "</div>";
+		return data;
+		
+}
+
+</script>
+<a id="show-dialog" type="button" class="mdl-typography--text-right mdl-button mdl-js-button mdl-button--raised mdl-button--colored" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScCOkk9FdB7Oc5D1In0XulHZGO4JqMOkjXhrzdVN1R9anH4ew/viewform?embedded=true&amp;amp;usp=embed_googleplus">Add New Job</a>
+
+ 
+  </body>
+</html>
