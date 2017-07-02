@@ -1,11 +1,38 @@
----
-title: www.smitshah.in
-timezone: Asia/Kolkata
-collections:
-  posts:
-    title: Posts
-    output: true
-  uploads:
-    title: Uploads
-    output: true
-theme: jekyll-theme-cayman
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Smit Shah
+email: "smitshah81@gmail.com"
+tagline: "Module Lead"
+mobile: "+91 942-815-3422"
+address: "C-504,Meghansh Habitate,Jivraj Cross Road,B/H TV9 Office,Ahmedabad Pincode:380051"
+description: > # this means to ignore newlines until "baseurl:"
+  Module Lead having 8 Years Of experience
+baseurl: "" # the subpath of your site, e.g. /blog
+objective: "I am a creative thinker. I like to explore alternative solutions to problems and have an open
+mind about what will work best."
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: smit_shah_
+github_username:  smitshah81
+linkedin_username:  smitphpdeveloper
+
+# Build settings
+markdown: kramdown
+#theme: minima
+gems:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock
