@@ -6,8 +6,9 @@ collections:
     title: Posts
     output: true
   project:
-    title: Project
+    title: Projects
     output: true
+    permalink: projects
   uploads:
     title: Uploads
     output: true
