@@ -8,7 +8,7 @@ Project Details:
   Technology:
   - PHP
   - Javascript
-layout: page
+layout: projects
 ---
 
 this is a test porject.
