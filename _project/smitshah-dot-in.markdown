@@ -7,6 +7,7 @@ Technology:
 - ROR
 - Jekyll
 - 
+layout: projects
 ---
 
 current website
