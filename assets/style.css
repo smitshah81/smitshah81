@@ -6031,7 +6031,7 @@ body {
 .sidebar .heading nav {
   background-color: initial;
   box-shadow: initial;
-  display: none;
+  
 }
 .sidebar .heading nav .button-collapse i {
   height: 30px;
