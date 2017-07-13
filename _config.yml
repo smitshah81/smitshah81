@@ -9,6 +9,7 @@ collections:
     title: Projects
     output: true
     permalink: "/:collection/:name"
+    layout: inner
   uploads:
     title: Uploads
     output: true
