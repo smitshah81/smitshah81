@@ -9,7 +9,7 @@ collections:
   project:
     title: Projects
     output: true
-    permalink: pretty
+    permalink: /:collection/:name
   uploads:
     title: Uploads
     output: true
